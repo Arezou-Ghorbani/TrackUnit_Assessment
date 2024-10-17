@@ -1,19 +1,41 @@
 package com.example.trackunit_assessment
 
 import com.example.trackunit_assessment.model.Order
-import com.example.trackunit_assessment.utils.readRawTextFile
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.example.trackunit_assessment.model.Product
 import kotlinx.coroutines.delay
 
 class GetOrdersUseCase {
 
     suspend operator fun invoke(): List<Order> {
-        val dataStr = readRawTextFile(R.raw.data)
-        val dataType = TypeToken.getParameterized(List::class.java, Order::class.java).type
-//        fake delay to be like getting data from server ;)
+//        val dataStr = readRawTextFile(R.raw.data)?.trimIndent()
+//
+//        Log.i("TAG", "invoke: " + dataStr)
+//        val dataType = object : TypeToken<List<Order>>() {}.type
+////        fake delay for get data from server ;)
+//        delay(1200)
+//        return Gson().fromJson(dataStr, dataType)
+
         delay(1200)
-        return Gson().fromJson(dataStr, dataType)
+        return listOf(
+            Order(
+                orderId = 25,
+                customerId = 456,
+                totalPrice = 1744,
+                items = listOf(
+                    Product(id = 1, name = "Far Cry 5", price = 445),
+                    Product(id = 2, name = "Beats Solo 3 Wireless", price = 1299)
+                )
+            ),
+            Order(
+                orderId = 42,
+                customerId = 456,
+                totalPrice = 3000,
+                items = listOf(
+                    Product(id = 4, name = "Commodore 64", price = 3000)
+                )
+            )
+        )
+
     }
 
 }
